@@ -1,25 +1,23 @@
-import logo from './logo.svg';
+import React from "react";
 import './App.css';
+import {Header} from "./components/header/header";
+import {MyCard} from "./components/userCard/card";
+import {Block} from "./components/content/content";
+import './components/content/mainContent.css'
+function App({test}) {
+    console.log(test);
+    return (
+        <div className="App">
+            {test}
+            <Header>
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+            </Header>
+            <div className='MainContent'>
+                <MyCard name="Bender" age='29' quote="We’re making beer. I’m the brewery!"/>
+                <Block>test</Block>
+            </div>
+        </div>
+    )
 }
 
-export default App;
+export default App

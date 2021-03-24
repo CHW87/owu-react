@@ -1,0 +1,10 @@
+.user_info {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    justify-content: center;
+}
+.user_info_avatar {
+    width: 80px;
+    height: 80px;
+}
