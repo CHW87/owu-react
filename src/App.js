@@ -9,12 +9,11 @@ function App({test}) {
     return (
         <div className="App">
             {test}
-            <Header>
+            <Header/>
 
-            </Header>
             <div className='MainContent'>
                 <MyCard name="Bender" age='29' quote="We’re making beer. I’m the brewery!"/>
-                <Block>test</Block>
+                <Block>HELLO WORLD</Block>
             </div>
         </div>
     )
