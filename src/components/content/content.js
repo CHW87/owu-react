@@ -1,9 +1,10 @@
 import React from "react";
 
-export const Block = () => {
+export const Block = ({children}) => {
+
     return (
         <div>
-            <h2>Title</h2>
+            <h2>{children}</h2>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab consequuntur culpa dolorem ducimus eum
                 exercitationem laborum, maiores minus natus non quis quo reprehenderit repudiandae sit voluptate! A
                 assumenda aut, beatae commodi consequatur consequuntur deleniti dolor, earum ex illum iste iure labore
