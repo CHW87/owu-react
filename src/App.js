@@ -1,22 +1,183 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import './App.css';
-import {Header} from "./components/header/header";
-import {MyCard} from "./components/userCard/card";
-import {Block} from "./components/content/content";
-import './components/content/mainContent.css'
-function App({test}) {
-    console.log(test);
+
+const Tabs = ({tabs, selectedTab}) => {
+    return (
+        <div style={{display: "flex",}}>
+            {tabs.map(tab =>
+                <button
+                    key={tab.title}
+                    style={{
+                        flex: 1,
+                        height: '50px',
+                        background: selectedTab === tab.title ? 'orange' : 'lightgrey'
+                    }}
+                    onClick={tab.clickHandler}>{tab.title}
+                </button>)}
+        </div>
+    )
+}
+
+const PostList = ({posts}) => {
+    return (
+        <>
+            {posts.map(post => (
+                <div key ={post.id}>
+                    <h3>{post.title}</h3>
+                    <p>{post.body}</p>
+                </div>
+            ))}
+        </>
+
+    )
+}
+
+const CommentList = ({comments}) => {
+    return (
+        <>
+            {comments.map(comment => (
+                <div key={comment.id}>
+                    <h3>{comment.name}</h3>
+                    <p>{comment.body}</p>
+                </div>
+            ))}
+        </>
+
+    )
+}
+
+const AlbumList = ({albums}) => {
+    return (
+        <>
+            {albums.map(album => (
+                <div key = {album.id}>
+                    <h3>{album.title}</h3>
+                </div>
+            ))}
+        </>
+
+    )
+}
+
+const PhotoList = ({photos}) => {
+    return (
+        <>
+            {photos.map(photo => (
+                <div key={photo.id}>
+                    <h3>{photo.title}</h3>
+                    <img src={photos.thumbnailUrl}></img>
+                </div>
+            ))}
+        </>
+
+    )
+}
+
+const TodoList = ({todos}) => {
+    return (
+        <>
+            {todos.map(todo => (
+                <div key={todo.id}>
+                    <h3>{todo.title}</h3>
+                    <p>{todo.completed.toString()}</p>
+                </div>
+            ))}
+        </>
+
+    )
+}
+
+const UserList = ({users}) => {
+    return (
+        <>
+            {users.map(user => (
+                <>
+                    <h3>{user.name}--{user.username}--{user.email}</h3>
+                   
+                </>
+            ))}
+        </>
+
+    )
+}
+
+
+const urlBuilder = (resource) => `https://jsonplaceholder.typicode.com/${resource}`
+
+function App() {
+    const onTabChangeHandler = (tab) =>{
+        if(tab !== selectedTab) {
+            setSelectedTab(tab);
+            setList([])
+        }
+    }
+    
+    const tabs = [
+        {title: 'posts', clickHandler: () => onTabChangeHandler('posts')},
+        {title: 'comments', clickHandler: () => onTabChangeHandler('comments')},
+        {title: 'albums', clickHandler: () => onTabChangeHandler('albums')},
+        {title: 'photos', clickHandler: () => onTabChangeHandler('photos')},
+        {title: 'todos', clickHandler: () => onTabChangeHandler('todos')},
+        {title: 'users', clickHandler: () => onTabChangeHandler('users')},
+
+    ]
+    const [selectedTab, setSelectedTab] = useState(tabs[0].title)
+    const [list,setList] = useState([])
+
+    const fetchData = async () => {
+        const response = await fetch(urlBuilder(selectedTab));
+        const data = await response.json()
+        setList(data)
+        console.log(selectedTab, data);
+    }
+
+    useEffect(() => {
+            fetchData();
+        },
+        [selectedTab])
+
     return (
         <div className="App">
-            {test}
-            <Header/>
+            <Tabs tabs={tabs} selectedTab={selectedTab}/>
 
-            <div className='MainContent'>
-                <MyCard name="Bender" age='29' quote="We’re making beer. I’m the brewery!"/>
-                <Block>HELLO WORLD</Block>
-            </div>
+            {selectedTab=== 'posts' && <PostList posts={list}/>}
+            {selectedTab=== 'comments' && <CommentList comments={list}/>}
+            {selectedTab=== 'albums' && <AlbumList albums={list}/>}
+            {selectedTab=== 'photos' && <PhotoList photos={list}/>}
+            {selectedTab=== 'todos' && <TodoList todos={list}/>}
+            {selectedTab=== 'users' && <UserList users={list}/>}
         </div>
     )
 }
 
 export default App
+
+// import React from 'react';
+//
+// function App(props) {
+//     return (
+//         <div></div>
+//     );
+// }
+//
+// export default App;
+
+
+// урл
+// https://jsonplaceholder.typicode.com/
+//
+// ендпоінти
+// /posts 
+// /comments 
+// /albums 
+// /photos 
+// /todos 
+// /users 
+//
+//
+// потрібно створити логіку, яка задовільнить наступні вимоги
+// в нас має бути 6 кнопок, які дозволяють нам переключатись між 'табами' (posts, comments, albums, photos, todos, users)
+// дефолтно обрана таба- пости
+// по кліку на кнопку ми повинні підтягнути відповідний список і зрендерити його через .map
+// лише 1 список видимий одночасно
+// потрібно створити 6 компонент, які займатимуться рендерінгом списків (отримуватимуть пропсами список)- PostList, CommentsList...
