@@ -2,8 +2,8 @@ import React from "react";
 
 export const Block = () => {
     return (
-        <div>
-            <h2>Title</h2>
+        <div className="block">
+            <h2>Sayings</h2>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab consequuntur culpa dolorem ducimus eum
                 exercitationem laborum, maiores minus natus non quis quo reprehenderit repudiandae sit voluptate! A
                 assumenda aut, beatae commodi consequatur consequuntur deleniti dolor, earum ex illum iste iure labore

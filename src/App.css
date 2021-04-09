@@ -16,7 +16,10 @@
 .my-header-icon {
   height: 80px;
 }
-.bender {
-  width: 300px;
+.img {
+  width: 200px;
   height: 250px;
+}
+.block {
+  padding-left: 20px;
 }
